@@ -50,9 +50,10 @@ def handle_message(event):
     if event.message.text == "功能解說":
         with open("help.txt", "r") as f:
             helper = f.read()
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text= helper))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=helper))
 
     if event.message.text == "加入遊戲":
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
 
 
 
