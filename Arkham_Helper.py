@@ -43,17 +43,18 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     """line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))"""
+    message = event.message.text.split(",")
 
-    if event.message.text == "功能":
+    if message[0] == "功能":
         info = "\n".join(commands)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=info))
 
-    if event.message.text == "功能解說":
+    if message[0] == "功能解說":
         with open("help.txt", "r", encoding='Big5', errors='ignore') as f:
             helper = f.read()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=helper))
 
-    if event.message.text == "加入遊戲":
+    if message[0] == "加入遊戲":
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
 
 
