@@ -1,0 +1,1 @@
+web gunicorn chinG_bot:app --preload
