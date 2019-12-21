@@ -19,6 +19,7 @@ config.read("config.ini")
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 commands = ["功能", "功能解說", "加入遊戲", "創建角色", "查詢角色", "更新角色", "紀錄冒險", "查詢冒險"]
+str = "初次使用請先輸入:加入遊戲創建角色請依照以下規格輸入:/創建角色,玩家名稱,角色名稱,經驗值,肉體創傷/精神創傷,永久卡片更新角色請依照以下規格輸入(括弧內只需輸入須更新之內容即可):/更新角色,(經驗值:,肉體創傷/精神創傷:,永久卡片:)例:/更新角色,經驗值:5"
 
 
 @app.route("/callback", methods=['POST'])
@@ -44,13 +45,13 @@ def callback():
 def handle_message(event):
     """line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))"""
     if event.message.text == "指令":
-        info = ",".join(commands)
+        info = "/n".join(commands)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=info))
 
     if event.message.text == "功能解說":
         with open("help.txt", "r") as f:
             helper = f.read()
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=helper))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=""))
 
     if event.message.text == "加入遊戲":
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
