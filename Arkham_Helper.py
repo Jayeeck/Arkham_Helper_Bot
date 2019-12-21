@@ -19,8 +19,6 @@ config.read("config.ini")
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
 commands = ["功能", "功能解說", "加入遊戲", "創建角色", "查詢角色", "更新角色", "紀錄冒險", "查詢冒險"]
-with open("help.txt", "r") as f:
-    helper = f.read()
 
 
 @app.route("/callback", methods=['POST'])
@@ -50,10 +48,10 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=info))
 
     if event.message.text == "功能解說":
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=helper))
+        with open("help.txt", "r") as f:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text= f.read()))
 
     if event.message.text == "加入遊戲":
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=helper))
 
 
 
