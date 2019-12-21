@@ -45,11 +45,11 @@ def callback():
 def handle_message(event):
     """line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))"""
     if event.message.text == "指令":
-        info = "/n".join(commands)
+        info = "\n".join(commands)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=info))
 
     if event.message.text == "功能解說":
-        with open("help.txt", "r") as f:
+        with open("help.txt", "r", encoding='utf-8', errors='ignore') as f:
             helper = f.read()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=""))
 
