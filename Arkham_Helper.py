@@ -44,14 +44,16 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    """line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))"""
     if event.message.text == "指令":
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=",".join(commands)))
+        info = ",".join(commands)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=info))
 
     if event.message.text == "功能解說":
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(helper))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=helper))
 
     if event.message.text == "加入遊戲":
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(helper))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=helper))
 
 
 
