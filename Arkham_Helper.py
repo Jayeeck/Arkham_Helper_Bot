@@ -63,7 +63,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=cHandler.createCharacter(event.source.user_id, message)))
 
     if head == "查詢角色":
-        result = cHandler.searchCharacter(event.source.user_id)
+        result = cHandler.searchCharacters(event.source.user_id)
         if type(result) == list:
             if len(result) > 0:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="\n\n".join(result)))
@@ -71,6 +71,8 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="該玩家尚未創建角色"))
         elif type(result) == str:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text=result))
+    if head == "更新角色":
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=cHandler.updateCharacter(event.source.user_id, message)))
 
 
 if __name__ == "__main__":

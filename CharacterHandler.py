@@ -25,7 +25,7 @@ class CharacterHandler:
         else:
             return "請依照正確格式輸入(5項皆須輸入)"
 
-    def searchCharacter(self, user_id):
+    def searchCharacters(self, user_id):
         try:
             characterList = list(self.characters.find({'user_id': user_id}))
             returnList = []
@@ -39,3 +39,22 @@ class CharacterHandler:
             return returnList
         except:
             return "讀取失敗：%s" % (sys.exc_info()[0])
+
+    def updateCharacter(self, user_id, data):
+        try:
+            updates = {}
+            tempList = []
+            for detail in data:
+                if "：" in detail:
+                    details = detail.split("：")
+                    if details[0] == "經驗值":
+                        tempList.append(('exp', details[1]))
+                    elif details[0] == "肉體/精神":
+                        tempList.append(('permanent_injured', details[1]))
+                    elif details[0] == "永久卡片":
+                        tempList.append(('permanent_card', details[1]))
+            updates.update(tempList)
+            self.characters.update_one({'user_id': user_id, 'character': data[0]}, {'$set': updates})
+            return "更新成功!"
+        except:
+            return "更新失敗!請依照格式輸入!"
