@@ -12,7 +12,8 @@ class AdventureHandler:
         self.adventures = db.AdventureLog
 
     def newLog(self, user_id, data):
-        if len(data) == 5:
+        self.adjustLogs(user_id)
+        if len(data) == 4:
             info = {
                 'user_id': user_id,
                 'story_name': data[0],
@@ -40,3 +41,8 @@ class AdventureHandler:
             return returnList
         except:
             return "讀取失敗：%s" % (sys.exc_info()[0])
+
+    def adjustLogs(self, user_id):
+        logList = list(self.adventures.find({'user_id': user_id}))
+        if(len(logList)>4):
+            self.adventures.delete_one({'record_time': logList[0]['record_time']})

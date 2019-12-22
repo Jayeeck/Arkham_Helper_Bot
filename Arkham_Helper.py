@@ -22,7 +22,7 @@ config.read("config.ini")
 clientToken = config['mongo_db']['Client_Access_Token']
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
-commands = ["指令", "功能解說", "創建角色", "查詢角色", "更新角色", "紀錄冒險", "查詢冒險"]
+commands = ["指令", "功能解說", "創建角色", "查詢角色", "更新角色", "紀錄冒險", "冒險日誌"]
 cHandler = CharacterHandler(clientToken)
 aHandler = AdventureHandler(clientToken)
 
