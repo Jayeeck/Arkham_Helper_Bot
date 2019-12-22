@@ -1,9 +1,9 @@
-from CharacterHandler import CharacterHandler
+from datetime import datetime
+from AdventureHandler import AdventureHandler
 
 
 def main():
-    cHandler = CharacterHandler("***REMOVED***")
-    data = ["經驗值：6", "肉體/精神：2/3", "永久卡片：無"]
-    cHandler.updateCharacter("Ufb04bacba3eff7612f2e4c208abc78d2", "格妮絲", data)
+    aHandler = AdventureHandler("***REMOVED***")
+    aHandler.newLog(["敦威智遺產", "戶外教學", datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "困難", "老頭死了"])
 if __name__ == '__main__':
     main()
