@@ -12,13 +12,17 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+from CharacterHandler import CharacterHandler
+
 app = Flask(__name__)
 
 config = configparser.ConfigParser()
 config.read("config.ini")
+clientToken = config['mongo_db']['Client_Access_Token']
 line_bot_api = LineBotApi(config['line_bot']['Channel_Access_Token'])
 handler = WebhookHandler(config['line_bot']['Channel_Secret'])
-commands = ["功能", "功能解說", "加入遊戲", "創建角色", "查詢角色", "更新角色", "紀錄冒險", "查詢冒險"]
+commands = ["指令", "功能解說", "創建角色", "查詢角色", "更新角色", "紀錄冒險", "查詢冒險"]
+cHandler = CharacterHandler(clientToken)
 
 
 @app.route("/callback", methods=['POST'])
@@ -44,18 +48,19 @@ def callback():
 def handle_message(event):
     """line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))"""
     message = event.message.text.split(",")
-
-    if message[0] == "功能":
+    head = message[0]
+    del message[0]
+    if head == "指令":
         info = "\n".join(commands)
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=info))
 
-    if message[0] == "功能解說":
+    if head == "功能解說":
         with open("help.txt", "r", encoding='Big5', errors='ignore') as f:
             helper = f.read()
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=helper))
 
-    if message[0] == "加入遊戲":
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
+    if head == "創建角色":
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=cHandler.createCharacter(event.source.user_id, message)))
 
 
 
