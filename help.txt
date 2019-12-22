@@ -1,5 +1,5 @@
 *沒有的項目請輸入無或0
-**所有逗號皆為"中文逗號"all the comma is in chinese style
+**所有逗號皆為"中文逗號"all the comma is  chinese punctuation
 
 創建角色請依照以下格式輸入：
 創建角色，玩家名稱，角色名稱，經驗值，肉體創傷/精神創傷，永久卡片/永久卡片(一張以上以/區隔)
