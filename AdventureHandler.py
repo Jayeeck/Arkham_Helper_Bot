@@ -44,6 +44,5 @@ class AdventureHandler:
 
     def adjustLogs(self, user_id):
         logList = list(self.adventures.find({'user_id': user_id}))
-        print(logList[0])
         if(len(logList)>=4):
             self.adventures.delete_one({'record_time': logList[0]['record_time']})
